@@ -1,22 +1,80 @@
+body, html {
+  background: #f8f8f8;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
 }
 
-.App-link {
-  color: #09d3ac;
+a {
+  color: #d309b9;
+  text-underline: none;
+}
+
+.ImageGrid {
+  max-width: 1000px;
+}
+
+.Image-box {
+  display: inline-block;
+  margin: 50px;
+  vertical-align: middle;
+  color: #333;
+  text-decoration: none;
+}
+
+.Image-img {
+  width: 224px;
+}
+
+.Image-overlay-container {
+  position: relative;
+}
+
+.Image-caption {
+  font-size: 14px;
+  color: #ccc;
+  max-width: 224px;
+  height: 30px;
+}
+
+.Image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  animation: pulse 6s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.MoreButton {
+  display: inline-block;
+  cursor: pointer;
+  padding: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin: 10px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  border: 1px solid #eee;
+  background: white;
 }

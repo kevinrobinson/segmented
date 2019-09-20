@@ -5,13 +5,17 @@
   "dependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.2"
+    "react-scripts": "3.1.2",
+    "@tensorflow-models/deeplab": "link:.yalc/@tensorflow-models/deeplab",
+    "@tensorflow/tfjs-converter": "1.2.5",
+    "@tensorflow/tfjs-core": "1.2.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "link-local": "yalc add --link @tensorflow-models/deeplab"
   },
   "eslintConfig": {
     "extends": "react-app"

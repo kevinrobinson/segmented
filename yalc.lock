@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@tensorflow-models/deeplab": {
+      "signature": "cd73146d16491329629e07ec9d08c5ec",
+      "link": true
+    }
+  }
+}
