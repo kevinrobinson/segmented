@@ -32,6 +32,10 @@ h1 {
   color: #666;
 }
 
+.Sources > div {
+  line-height: 1.5em;
+}
+
 .ScrollContainer {
   flex: 1;
   display: flex;

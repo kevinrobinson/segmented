@@ -185,7 +185,7 @@ class SegmentationOverlay extends React.Component {
       img.style.height = imgEl.style.height;
       img.width = imgEl.width;
       img.height = imgEl.height;
-      img.src = `/masks/v2/${image.filename}`
+      img.src = `/masks/v3/${image.filename}`
       overlayEl.appendChild(img);
     }
 
