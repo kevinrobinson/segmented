@@ -39,8 +39,7 @@ export default class App extends React.Component {
         <div className="Sources">
           <div>images from <a href="http://100photos.time.com/">100photos.time.com</a> with <a href="http://100photos.time.com/credits">credits</a></div>
           <div>with <a href="https://groups.csail.mit.edu/vision/datasets/ADE20K/">ade20k</a> via <a href="https://github.com/tensorflow/tfjs-models/tree/master/deeplab">DeepLab v3</a></div>
-          <div>inspired by <a href="https://www.excavating.ai">excavating.ai</a></div>
-          <div className="ReadMore" onClick={this.onNoteClick}>read more</div>
+          <div>inspired by <a href="https://www.excavating.ai">excavating.ai</a><div className="ReadMore" onClick={this.onNoteClick}>read more</div></div>
         </div>
         {showNote && <Note onClick={this.onNoteClick}/>}
         <ImageGrid n={n}>
@@ -316,7 +315,7 @@ function Note({onClick}) {
           <div className="Note-quote">"What if the challenge of getting computers to “describe what they see” will always be a problem?  The automated interpretation of images is an inherently social and political project, rather than a purely technical one."</div>
           <a href="https://www.excavating.ai/#new-page-97" rel="noopener noreferrer" target="_blank">Kate Crawford, Trevor Paglen</a>
         </div>
-        <div>This project aspires to prompt questions about the different ways that models might interpret our world, and where the wrong absta ask if there places where no abstraction might be better than the wrong abstraction.</div>
+        <div>This project aspires to prompt questions about the different ways that models might interpret our world, and ask if there are places in our world where no abstraction might be better than the wrong abstraction.</div>
         <div className="Note-close">close</div>
       </div>
     </div>
