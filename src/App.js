@@ -11,14 +11,20 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      n: 12
+      n: 12,
+      showNote: false
     };
+    this.onNoteClick = this.onNoteClick.bind(this);
+  }
+
+  onNoteClick() {
+    this.setState({showNote: !this.state.showNote});
   }
 
   render() {
-    const {n} = this.state;
+    const {n, showNote} = this.state;
     const MAX = images.length;
-    const MORE = 12;
+    const MORE = 6;
     return (
       <div className="App" onClick={async e => {
         window.localforage = localforage;
@@ -29,12 +35,14 @@ export default class App extends React.Component {
       }}
         >
         <h1>segmented</h1>
-        <div className="Subtitle">what do segmentation models see in 100 of our most iconic images?</div>
+        <div className="Subtitle">what do segmentation models see in our most iconic photographs?</div>
         <div className="Sources">
-          <div>from <a href="http://100photos.time.com/">100photos.time.com</a></div>
+          <div>images from <a href="http://100photos.time.com/">100photos.time.com</a> with <a href="http://100photos.time.com/credits">credits</a></div>
           <div>with <a href="https://groups.csail.mit.edu/vision/datasets/ADE20K/">ade20k</a> via <a href="https://github.com/tensorflow/tfjs-models/tree/master/deeplab">DeepLab v3</a></div>
           <div>inspired by <a href="https://www.excavating.ai">excavating.ai</a></div>
+          <div className="ReadMore" onClick={this.onNoteClick}>read more</div>
         </div>
+        {showNote && <Note onClick={this.onNoteClick}/>}
         <ImageGrid n={n}>
           {n < MAX && (
             <button
@@ -120,7 +128,7 @@ class Image extends React.Component {
         className={_.compact(["Image-box", isDone ? 'Image-box-animating' : null]).join(' ')}>
         <div className="Image-rows">
           <div className="Image-overlay-container" ref={this.overlayContainerEl}>
-            <img height="224" ref={this.imgRef} onLoad={this.onLoad} className="Image-img" src={`/img-resized/${image.filename}`} alt={image.alt} />
+            <img height="224" ref={this.imgRef} onLoad={this.onLoad} className="Image-img" src={`/img/v1-resized/${image.filename}`} alt={image.alt} />
             {isReadyForSegmentation && (
               <SegmentationOverlay
                 model={model} 
@@ -151,7 +159,7 @@ class SegmentationOverlay extends React.Component {
     const {model, image, imgEl} = this.props;
 
     if (isOptionSet('clear-localforage')) {
-      console.log('clearning localforage...');
+      console.log('clearing localforage...');
       localforage.clear();
     }
     if (isOptionSet('disabled')) return;
@@ -189,12 +197,11 @@ class SegmentationOverlay extends React.Component {
       img.style.height = imgEl.style.height;
       img.width = imgEl.width;
       img.height = imgEl.height;
-      img.src = `/masks/v3-resized/${image.filename}`
+      img.src = `/masks/v5-resized/${image.filename}`
       overlayEl.appendChild(img);
     }
 
     // stats
-    console.log('sortedLegend', sortedLegend);
     _.orderBy(sortedLegend, ['percentage'], ['desc']).slice(0, 3).forEach(sortedLegendItem => {
       const {classKey, percentage, rgb} = sortedLegendItem;
       const divEl = document.createElement('div');
@@ -225,7 +232,6 @@ async function go(model, imageFilename, imageEl) {
   // load by default
   if (!isOptionSet('disable-fetching-images')) {
     const bits = _.find(cachedBits, {key: imageFilename});
-    console.log('bits', bits);
     if (bits) return bits.value;
   }
 
@@ -286,4 +292,33 @@ function forceDownload(canvas, filename) {
 
 function isOptionSet(key) {
   return (window.location.search.indexOf(key) !== -1);
+}
+
+
+function Note({onClick}) {
+  return (
+    <div onClick={onClick}>
+      <div className="Note-screen" />
+      <div className="Note">
+        <div className="Note-title">segmented: a note on the project</div>
+        <div className="Note-section">
+          <div>Picking the right abstractions in API design is challenging for engineers to do when it just concerns software engineering itself:</div>
+          <div className="Note-quote">"It’s much easier to recover from no abstraction than the wrong abstraction... one little abstraction can't hurt, but abstractions tend to spread..."</div>
+          <a href="https://youtu.be/4anAwXYqLG8?t=805" rel="noopener noreferrer" target="_blank">Sebastian Markbage</a>
+        </div>
+        <div className="Note-section">
+          <div>It's even harder to do this kind of API design for AI models that seek to create abstractions and APIs for understanding our world from images or other data:</div>
+          <div className="Note-quote">"Images are laden with potential meanings, irresolvable questions, and contradictions... Images do not describe themselves. This is a feature that artists have explored for centuries."</div>
+          <a href="https://www.excavating.ai" rel="noopener noreferrer" target="_blank">Kate Crawford, Trevor Paglen</a>
+        </div>
+        <div className="Note-section">
+          <div>Creating abstractions of our world requires more diverse voices critiquing and influencing how these abstractions are created, and how they are used.</div>
+          <div className="Note-quote">"What if the challenge of getting computers to “describe what they see” will always be a problem?  The automated interpretation of images is an inherently social and political project, rather than a purely technical one."</div>
+          <a href="https://www.excavating.ai/#new-page-97" rel="noopener noreferrer" target="_blank">Kate Crawford, Trevor Paglen</a>
+        </div>
+        <div>This project aspires to prompt questions about the different ways that models might interpret our world, and where the wrong absta ask if there places where no abstraction might be better than the wrong abstraction.</div>
+        <div className="Note-close">close</div>
+      </div>
+    </div>
+  );
 }

@@ -177,3 +177,55 @@ h1 {
   border: 1px solid #eee;
   background: white;
 }
+
+.Note {
+  position: absolute;
+  top: 100px;
+  text-align: left;
+  padding: 20px;
+  left: 10%;
+  right: 10%;
+  max-width: 600px;
+  background: white;
+  border: 1px solid #eee;
+  z-index: 100;
+}
+
+.Note-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #333;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.Note-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.Note-quote {
+  padding: 20px;
+  padding-bottom: 0;
+  font-style: italic;
+}
+
+.Note-section > a {
+  display: block;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.Note-close {
+  padding-top: 20px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.ReadMore {
+  cursor: pointer;
+  text-decoration: underline;
+}
