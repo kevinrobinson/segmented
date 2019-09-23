@@ -95,12 +95,14 @@ class Image extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isImageLoaded: false
+      isImageLoaded: false,
+      isVisible: false
     };
     this.overlayContainerEl = React.createRef();
     this.imgRef = React.createRef();
     this.infoRef = React.createRef();
     this.onLoad = this.onLoad.bind(this);
+    this.onReveal = this.onReveal.bind(this);
     this.onDone = this.onDone.bind(this);
   }
 
@@ -108,13 +110,16 @@ class Image extends React.Component {
     this.setState({isImageLoaded: true});
   }
 
+  onReveal(e) {
+    this.setState({isVisible: !this.state.isVisible});
+  }
   onDone() {
     this.setState({isDone: true});
   }
 
   render() {
     const {model, image} = this.props;
-    const {isImageLoaded, isDone} = this.state;
+    const {isImageLoaded, isDone, isVisible} = this.state;
     const isReadyForSegmentation = (
       model &&
       isImageLoaded &&
@@ -125,7 +130,12 @@ class Image extends React.Component {
     return (
       <div
         key={image.filename}
-        className={_.compact(["Image-box", isDone ? 'Image-box-animating' : null]).join(' ')}>
+        onClick={this.onReveal}
+        className={_.compact([
+          "Image-box",
+          isDone ? 'Image-box-animating' : null,
+          isDone && isVisible ? 'visible' : null
+        ]).join(' ')}>
         <div className="Image-rows">
           <div className="Image-overlay-container" ref={this.overlayContainerEl}>
             <img ref={this.imgRef} onLoad={this.onLoad} className="Image-img" src={`/img/v1-resized/${image.filename}`} alt={image.alt} />
@@ -140,11 +150,13 @@ class Image extends React.Component {
               />
             )}
           </div>
-          <a
-            rel="noopener noreferrer" target="_blank"
-            href={`http://100photos.time.com${image.href}`}
-            className="Image-caption">{image.alt}</a>
-          <div className="Legend-container" ref={this.infoRef} />
+          <div className="Image-text">
+            <a
+              rel="noopener noreferrer" target="_blank"
+              href={`http://100photos.time.com${image.href}`}
+              className="Image-caption">{image.alt}</a>
+            <div className="Legend-container" ref={this.infoRef} />
+          </div>
         </div>
       </div>
     );

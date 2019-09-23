@@ -22,7 +22,7 @@ a {
 }
 
 h1 {
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 5px;
 }
 
@@ -32,7 +32,7 @@ h1 {
 
 .Sources {
   margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 14px;
   color: #666;
 }
@@ -112,31 +112,66 @@ h1 {
   align-items: center;
 }
 
+.Image-text {
+  position: relative;
+  margin-top: 5px;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .Image-caption {
+  position: absolute;
   font-size: 18px;
   color: #bbb;
   max-width: 224px;
-  margin-top: 5px;
   height: 30px;
   text-decoration: underline;
   opacity: 0;
   transition: opacity 1s;
+  z-index: 1;
 }
 
-.Image-box-animating:hover .Image-img {
+.Legend-container {
+  position: absolute;
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+
+.Image-box-animating.visible .Image-img {
   opacity: 1;
 }
-.Image-box-animating:hover .Image-caption {
+.Image-box-animating.visible .Image-caption {
   opacity: 1;
   animation: none;
 }
-.Image-box-animating:hover .Image-overlay {
+.Image-box-animating.visible .Image-overlay {
   opacity: 0;
   animation: none;
 }
-.Image-box-animating:hover .Legend-container {
+.Image-box-animating.visible .Legend-container {
   opacity: 0;
   animation: none;
+}
+@media only screen and (min-device-width: 480px) {
+  .Image-box-animating:hover .Image-img {
+    opacity: 1;
+  }
+  .Image-box-animating:hover .Image-caption {
+    opacity: 1;
+    animation: none;
+  }
+  .Image-box-animating:hover .Image-overlay {
+    opacity: 0;
+    animation: none;
+  }
+  .Image-box-animating:hover .Legend-container {
+    opacity: 0;
+    animation: none;
+  }
 }
 
 /*.Image-box-animating:nth-child(odd) .Image-caption {
@@ -186,12 +221,6 @@ h1 {
   100% { opacity: 0.75; }
 }
 
-.Legend-container {
-  opacity: 1;
-  transition: opacity 1s;
-
-  height: 60px;
-}
 
 .MoreButton {
   display: inline-block;
