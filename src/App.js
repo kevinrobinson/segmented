@@ -11,14 +11,14 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      n: 3
+      n: 12
     };
   }
 
   render() {
     const {n} = this.state;
     const MAX = images.length;
-    const MORE = 9;
+    const MORE = 12;
     return (
       <div className="App" onClick={async e => {
         window.localforage = localforage;
@@ -88,6 +88,7 @@ class Image extends React.Component {
     this.state = {
       isImageLoaded: false
     };
+    this.overlayContainerEl = React.createRef();
     this.imgRef = React.createRef();
     this.infoRef = React.createRef();
     this.onLoad = this.onLoad.bind(this);
@@ -117,20 +118,23 @@ class Image extends React.Component {
         key={image.filename}
         href={`http://100photos.time.com${image.href}`}
         className={_.compact(["Image-box", isDone ? 'Image-box-animating' : null]).join(' ')}>
-        <div className="Image-overlay-container">      
-          <img ref={this.imgRef} onLoad={this.onLoad} className="Image-img" src={`/img/${image.filename}`} alt={image.alt} />
-          {isReadyForSegmentation && (
-            <SegmentationOverlay
-              model={model} 
-              image={image}
-              imgEl={this.imgRef.current}
-              infoEl={this.infoRef.current}
-              onDone={this.onDone}
-            />
-          )}
+        <div className="Image-rows">
+          <div className="Image-overlay-container" ref={this.overlayContainerEl}>
+            <img height="224" ref={this.imgRef} onLoad={this.onLoad} className="Image-img" src={`/img-resized/${image.filename}`} alt={image.alt} />
+            {isReadyForSegmentation && (
+              <SegmentationOverlay
+                model={model} 
+                image={image}
+                overlayContainerEl={this.overlayContainerEl.current}
+                imgEl={this.imgRef.current}
+                infoEl={this.infoRef.current}
+                onDone={this.onDone}
+              />
+            )}
+          </div>
+          <div className="Image-caption">{image.alt}</div>
+          <div className="Legend-container" ref={this.infoRef} />
         </div>
-        <div className="Image-caption">{image.alt}</div>
-        <div className="Legend-container" ref={this.infoRef} />
       </a>
     );
   }
@@ -156,8 +160,8 @@ class SegmentationOverlay extends React.Component {
 
   onDone(done) {
     console.log('done.');
-    const {image, imgEl, infoEl, onDone} = this.props;
-    const overlayEl = this.ref.current;
+    const {overlayContainerEl, image, imgEl, infoEl, onDone} = this.props;
+    const overlayEl = overlayContainerEl;
     const {width, height, sortedLegend} = done;
 
     // image
@@ -185,7 +189,7 @@ class SegmentationOverlay extends React.Component {
       img.style.height = imgEl.style.height;
       img.width = imgEl.width;
       img.height = imgEl.height;
-      img.src = `/masks/v3/${image.filename}`
+      img.src = `/masks/v3-resized/${image.filename}`
       overlayEl.appendChild(img);
     }
 
@@ -205,9 +209,7 @@ class SegmentationOverlay extends React.Component {
   }
 
   render() {
-    return (
-      <div className="SegmentationOverlay" ref={this.ref} />
-    );
+    return null;
   }
 }
 
