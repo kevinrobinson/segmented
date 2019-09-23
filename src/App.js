@@ -34,14 +34,16 @@ export default class App extends React.Component {
         }))));
       }}
         >
-        <h1>segmented</h1>
-        <div className="Subtitle">what do segmentation models see in our most iconic photographs?</div>
-        <div className="Sources">
-          <div>images from <a href="http://100photos.time.com/">100photos.time.com</a> with <a href="http://100photos.time.com/credits">credits</a></div>
-          <div>with <a href="https://groups.csail.mit.edu/vision/datasets/ADE20K/">ade20k</a> via <a href="https://github.com/tensorflow/tfjs-models/tree/master/deeplab">DeepLab v3</a></div>
-          <div>inspired by <a href="https://www.excavating.ai">excavating.ai</a><div className="ReadMore" onClick={this.onNoteClick}>statement</div></div>
+        <div className="Header">
+          <h1>segmented</h1>
+          <div className="Subtitle">what do segmentation models see in our most iconic photographs?</div>
+          <div className="Sources">
+            <div>images from <a href="http://100photos.time.com/">100photos.time.com</a> with <a href="http://100photos.time.com/credits">credits</a></div>
+            <div>with <a href="https://groups.csail.mit.edu/vision/datasets/ADE20K/">ade20k</a> via <a href="https://github.com/tensorflow/tfjs-models/tree/master/deeplab">DeepLab v3</a></div>
+            <div>inspired by <a href="https://www.excavating.ai">excavating.ai</a><div className="ReadMore" onClick={this.onNoteClick}>statement</div></div>
+          </div>
+          {showNote && <Note onClick={this.onNoteClick}/>}
         </div>
-        {showNote && <Note onClick={this.onNoteClick}/>}
         <ImageGrid n={n}>
           {n < MAX && (
             <button
@@ -121,13 +123,12 @@ class Image extends React.Component {
       this.imgRef.current.naturalHeight !== 0
     );
     return (
-      <a
+      <div
         key={image.filename}
-        href={`http://100photos.time.com${image.href}`}
         className={_.compact(["Image-box", isDone ? 'Image-box-animating' : null]).join(' ')}>
         <div className="Image-rows">
           <div className="Image-overlay-container" ref={this.overlayContainerEl}>
-            <img height="224" ref={this.imgRef} onLoad={this.onLoad} className="Image-img" src={`/img/v1-resized/${image.filename}`} alt={image.alt} />
+            <img ref={this.imgRef} onLoad={this.onLoad} className="Image-img" src={`/img/v1-resized/${image.filename}`} alt={image.alt} />
             {isReadyForSegmentation && (
               <SegmentationOverlay
                 model={model} 
@@ -139,10 +140,13 @@ class Image extends React.Component {
               />
             )}
           </div>
-          <div className="Image-caption">{image.alt}</div>
+          <a
+            rel="noopener noreferrer" target="_blank"
+            href={`http://100photos.time.com${image.href}`}
+            className="Image-caption">{image.alt}</a>
           <div className="Legend-container" ref={this.infoRef} />
         </div>
-      </a>
+      </div>
     );
   }
 }
