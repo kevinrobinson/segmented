@@ -39,7 +39,7 @@ export default class App extends React.Component {
         <div className="Sources">
           <div>images from <a href="http://100photos.time.com/">100photos.time.com</a> with <a href="http://100photos.time.com/credits">credits</a></div>
           <div>with <a href="https://groups.csail.mit.edu/vision/datasets/ADE20K/">ade20k</a> via <a href="https://github.com/tensorflow/tfjs-models/tree/master/deeplab">DeepLab v3</a></div>
-          <div>inspired by <a href="https://www.excavating.ai">excavating.ai</a><div className="ReadMore" onClick={this.onNoteClick}>read more</div></div>
+          <div>inspired by <a href="https://www.excavating.ai">excavating.ai</a><div className="ReadMore" onClick={this.onNoteClick}>statement</div></div>
         </div>
         {showNote && <Note onClick={this.onNoteClick}/>}
         <ImageGrid n={n}>

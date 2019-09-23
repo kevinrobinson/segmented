@@ -28,7 +28,7 @@ h1 {
 
 .Sources {
   margin-top: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 14px;
   color: #666;
 }
@@ -51,11 +51,13 @@ h1 {
 
 .ImageGrid {
   max-width: 1200px;
-  /*width: 100%;
-  overflow-x: hidden;*/
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+}
+@media only screen and (max-device-width: 480px) {
+  .ImageGrid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .Image-box {
@@ -136,10 +138,6 @@ h1 {
 
 .Image-overlay {
   position: absolute;
-  /*top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;*/
   opacity: 1;
   transition: opacity 1s;
 }
