@@ -1110,9 +1110,10 @@
     "@svgr/plugin-svgo" "^4.3.1"
     loader-utils "^1.2.3"
 
-"@tensorflow-models/deeplab@link:.yalc/@tensorflow-models/deeplab":
-  version "0.0.0"
-  uid ""
+"@tensorflow-models/deeplab@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@tensorflow-models/deeplab/-/deeplab-0.1.1.tgz#1c2665a9f2fecf7eb5daaba4b0de5de6b30348b5"
+  integrity sha512-IMtCRk37IPcNz7s3NJWEblyDaPVfuRTOSybHhkN17x2vjSD2ygfywTtMY/63jZKlp0Q7Ft/FNcDp0VQlAraWVw==
 
 "@tensorflow/tfjs-converter@1.2.5":
   version "1.2.5"
