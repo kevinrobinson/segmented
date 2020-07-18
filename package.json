@@ -7,7 +7,7 @@
     "@tensorflow/tfjs-converter": "1.2.5",
     "@tensorflow/tfjs-core": "1.2.5",
     "localforage": "^1.7.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "ngrok": "^3.2.5",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
